@@ -45,62 +45,102 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: SingleChildScrollView(
-      child:Column(
-        children: [
-          Column(
-            children: [
-              Center(
-                child: Container(
-                  margin: EdgeInsets.only(top: 20),
-                  height: 120,
-                  width: 120,
+        child: Column(
+          children: [
+            Column(
+              children: [
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 20),
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color:Colors.grey,
+                    ),
+                    
 
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey,
+                        clipBehavior: Clip.antiAlias,
+                    child: Image.network(
+                      fit: BoxFit.cover,
+                      'https://i.postimg.cc/XqMMMVgt/A3.jpg',
+                    ),
                   ),
                 ),
-              ),
-              Text(
-                "Nehal Azad",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Flutter Beginner and Future App Developer",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.deepPurple,
-                  fontWeight: FontWeight.w600,
+                Text(
+                  "Nehal Azad",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-              ),
-              SizedBox(
-                width: 300,
+                Text(
+                  "Flutter Beginner and Future App Developer",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
 
-                child: Text(
-                  "Flutter is a great framework for building beautiful and responsive mobile applications. I am excited to learn and grow as a Flutter developer.",
-                  style: TextStyle(fontSize: 15),
-                  textAlign: TextAlign.center,
+                  child: Text(
+                    "Flutter is a great framework for building beautiful and responsive mobile applications. I am excited to learn and grow as a Flutter developer.",
+                    style: TextStyle(fontSize: 15),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-              details(),
-              details(),
-              details(),
-            ],
-          ),
-        ],
+                details(
+                  icon: Icon(Icons.location_city),
+                  title: "Location",
+                  subtitle: "Chittagong, Bangladesh",
+                  color: Colors.deepPurple,
+                ),
+                details(
+                  icon: Icon(Icons.school),
+                  title: "Education",
+                  subtitle: "BSc. in Computer Science & Engineering",
+                  color: Colors.green,
+                ),
+                details(
+                  icon: Icon(Icons.work),
+                  title: "Skills",
+                  subtitle: "Flutter, Dart, html, css, javascript",
+                  color: Colors.cyan,
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                
+              ],
+            )
+          ],
+        ),
       ),
-    ),
     );
   }
 }
 
 class details extends StatelessWidget {
+  const details({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.color,
+  });
+
+  final String title;
+  final String subtitle;
+  final Widget icon;
+  final Color color;
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.sizeOf(context).width;
     return Container(
+      width: screenWidth * 1,
       padding: EdgeInsets.all(20),
-      margin: EdgeInsets.only(top: 10),
-      width: 350,
+      margin: EdgeInsets.only(top: 10, left: 20, right: 20),
+      // width: 350,
       decoration: BoxDecoration(
         color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
@@ -111,20 +151,26 @@ class details extends StatelessWidget {
           Container(
             height: 50,
             width: 50,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.deepPurple,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+            child: icon,
           ),
           SizedBox(width: 10),
-          Text(
-            "Location",
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.deepPurple,
-              fontWeight: FontWeight.bold,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: .start,
+
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(subtitle, style: TextStyle(color: Colors.black)),
+              ],
             ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
