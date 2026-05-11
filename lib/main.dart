@@ -56,11 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 120,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color:Colors.grey,
+                      color: Colors.grey,
                     ),
-                    
 
-                        clipBehavior: Clip.antiAlias,
+                    clipBehavior: Clip.antiAlias,
                     child: Image.network(
                       fit: BoxFit.cover,
                       'https://i.postimg.cc/XqMMMVgt/A3.jpg',
@@ -110,9 +109,47 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Column(
               children: [
-                
+                Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10),
+                      Text(
+                        "Connect with me",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        width: 200,
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Colors.blue,
+                              child: Icon(Icons.facebook, color: Colors.white),
+                            ),
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Colors.black,
+                              child: Icon(Icons.code, color: Colors.white),
+                            ),
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Colors.red,
+                              child: Icon(Icons.email, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),
