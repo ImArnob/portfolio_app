@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,6 +30,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Future<void> openLink(String url) async {
+    final Uri uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,78 +99,70 @@ class _MyHomePageState extends State<MyHomePage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                details(
-                  icon: Icon(Icons.location_city),
+                Details(
+                  icon: Icon(Icons.location_city,color: Colors.white),
                   title: "Location",
                   subtitle: "Chittagong, Bangladesh",
                   color: Colors.deepPurple,
                 ),
-                details(
-                  icon: Icon(Icons.school),
+                Details(
+                  icon: Icon(Icons.school,color: Colors.white),
                   title: "Education",
                   subtitle: "BSc. in Computer Science & Engineering",
                   color: Colors.green,
                 ),
-                details(
-                  icon: Icon(Icons.work),
+                Details(
+                  icon: Icon(Icons.work,color: Colors.white),
                   title: "Skills",
                   subtitle: "Flutter, Dart, html, css, javascript",
                   color: Colors.cyan,
                 ),
               ],
             ),
-            Column(
-              children: [
-                Center(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 10),
-                      Text(
-                        "Connect with me",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Container(
-                        width: 200,
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CircleAvatar(
-                              radius: 20,
-                              backgroundColor: Colors.blue,
-                              child: Icon(Icons.facebook, color: Colors.white),
-                            ),
-                            CircleAvatar(
-                              radius: 20,
-                              backgroundColor: Colors.black,
-                              child: Icon(Icons.code, color: Colors.white),
-                            ),
-                            CircleAvatar(
-                              radius: 20,
-                              backgroundColor: Colors.red,
-                              child: Icon(Icons.email, color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            SizedBox(height: 20),
           ],
         ),
+      ),
+      floatingActionButton: SpeedDial(
+        icon: Icons.add,
+        activeIcon: Icons.close,
+        backgroundColor: Colors.deepPurple.shade100,
+        foregroundColor: Colors.deepPurple,
+        children: [
+          SpeedDialChild(
+            child: Icon(Icons.facebook, color: Colors.white),
+            backgroundColor: Colors.blue,
+            label: 'Facebook',
+            onTap: () {
+              openLink("https://www.facebook.com");
+            },
+          ),
+
+          SpeedDialChild(
+            child: Icon(Icons.code, color: Colors.white),
+            backgroundColor: Colors.black,
+            label: 'GitHub',
+            onTap: () {
+              openLink("https://www.github.com");
+            },
+          ),
+
+          SpeedDialChild(
+            child: Icon(Icons.email, color: Colors.white),
+            backgroundColor: Colors.red,
+            label: 'Email',
+            onTap: () {
+              openLink("https://www.gmail.com");
+            },
+          ),
+        ],
       ),
     );
   }
 }
 
-class details extends StatelessWidget {
-  const details({
+class Details extends StatelessWidget {
+  const Details({
     super.key,
     required this.title,
     required this.subtitle,
